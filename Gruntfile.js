@@ -17,6 +17,14 @@ module.exports = function (grunt) {
   // Define the configuration for all the tasks
   grunt.initConfig({
 
+    parallel:{
+      assets:{
+        options:{
+          grunt: true
+        },
+        tasks:['ionic:serve', 'watch']
+      }
+    },
     // Project settings
     yeoman: {
       // configurable paths
@@ -161,7 +169,7 @@ module.exports = function (grunt) {
       }
     },
 
-    
+
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
@@ -190,7 +198,7 @@ module.exports = function (grunt) {
         }
       }
     },
-    
+
 
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
@@ -507,8 +515,8 @@ module.exports = function (grunt) {
       return grunt.task.run(['compress', 'ionic:serve']);
     }
 
-    grunt.config('concurrent.ionic.tasks', ['ionic:serve', 'watch']);
-    grunt.task.run(['wiredep', 'init', 'concurrent:ionic']);
+   // grunt.config('concurrent.ionic.tasks', ['ionic:serve', 'watch']);
+    grunt.task.run(['wiredep', 'init', 'concurrent:ionic', 'parallel:assets']);
   });
   grunt.registerTask('emulate', function() {
     grunt.config('concurrent.ionic.tasks', ['ionic:emulate:' + this.args.join(), 'watch']);
@@ -549,7 +557,7 @@ module.exports = function (grunt) {
     'htmlmin'
   ]);
 
-  grunt.registerTask('coverage', 
+  grunt.registerTask('coverage',
     ['karma:continuous',
     'connect:coverage:keepalive'
   ]);

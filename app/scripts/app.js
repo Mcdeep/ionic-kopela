@@ -4,7 +4,12 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+angular.module('starter',
+  ['ionic',
+    'starter.controllers',
+    'restangular',
+    'config'
+  ])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -22,7 +27,7 @@ angular.module('starter', ['ionic', 'starter.controllers'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, RestangularProvider, ENV) {
   $stateProvider
 
     .state('app', {
@@ -31,6 +36,14 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
   })
+    .state('app.welcome', {
+      url: '/welcome',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/welcome.html'
+        }
+      }
+    })
 
   .state('app.search', {
     url: '/search',
@@ -46,6 +59,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       views: {
         'menuContent': {
           templateUrl: 'templates/browse.html'
+        }
+      }
+    })
+    .state('app.songlist', {
+      url: '/songlist',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/song_list.html',
+          controller: 'SongListCtrl'
         }
       }
     })
@@ -69,5 +91,6 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+    $urlRouterProvider.otherwise('/app/welcome');
+    RestangularProvider.setBaseUrl(ENV['apiEndpoint']);
 });
