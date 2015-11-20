@@ -1,5 +1,11 @@
 <ion-view view-title="Songs">
   <ion-content>
     <h1>Song List</h1>
+
+    <ion-list>
+      <ion-item ng-repeat="song in songs" href="#/app/song/{{song._id}}">
+        {{song.name}}
+      </ion-item>
+    </ion-list>>
   </ion-content>
 </ion-view>
