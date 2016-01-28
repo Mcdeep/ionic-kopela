@@ -1,5 +1,19 @@
-<ion-view view-title="Song">
-  <ion-content>
-    <h1>Song</h1>
+<ion-view view-title="Hymns">
+  <ion-content id="song">
+    <div class="bar bar-subheader static text-center">
+      <strong class="title">{{song.name}}</strong>
+    </div>
+
+    <div class="item item-text-wrap">
+      <p ng-repeat="verse in song.verses" class="verse">{{verse}}</p>
+    </div>
+
   </ion-content>
+  <div class="bar bar-footer bar-energized-100">
+    <div class="buttons buttons-right">
+      <button class="button button-energized-900 button-fab">
+        <i class="icon ion-ios-list-outline"></i>
+      </button>
+    </div>
+  </div>
 </ion-view>

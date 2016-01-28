@@ -1,0 +1,17 @@
+<ion-view view-title="Recent">
+  <ion-content id="song">
+    <div class="bar bar-subheader bar-stable static text-center">
+      <strong class="title">Recently Viewed Hymns</strong>
+    </div>
+
+
+    <ion-item class="item item-icon-right"
+              collection-repeat="song in recent"
+              collection-item-width="'100%'"
+              href="#/app/song/{{song._id}}">
+      {{song.name}}
+      <i class="icon ion-chevron-right"></i>
+    </ion-item>
+
+  </ion-content>
+</ion-view>

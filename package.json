@@ -57,6 +57,17 @@
     "com.ionic.keyboard",
     "org.apache.cordova.device",
     "org.apache.cordova.console",
-    "com.ionic.keyboard"
+    "com.ionic.keyboard",
+    "com.ionic.keyboard",
+    "org.apache.cordova.device",
+    "org.apache.cordova.console",
+    "org.apache.cordova.console",
+    {
+      "locator": "https://github.com/apache/cordova-plugin-whitelist.git",
+      "id": "cordova-plugin-whitelist"
+    }
+  ],
+  "cordovaPlatforms": [
+    "android"
   ]
 }

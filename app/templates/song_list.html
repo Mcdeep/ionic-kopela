@@ -1,11 +1,14 @@
-<ion-view view-title="Songs">
+<ion-view view-title="Hymns">
   <ion-content>
-    <h1>Song List</h1>
-
-    <ion-list>
-      <ion-item ng-repeat="song in songs" href="#/app/song/{{song._id}}">
-        {{song.name}}
-      </ion-item>
-    </ion-list>>
+    <div class="bar bar-subheader static text-center">
+     <strong class="title">Browser Hymns</strong>
+    </div>
+    <ion-item class="item item-icon-right"
+              collection-repeat="song in songs"
+              collection-item-width="'100%'"
+              href="#/app/song/{{song._id}}">
+      {{song.name}}
+      <i class="icon ion-chevron-right"></i>
+    </ion-item>
   </ion-content>
 </ion-view>

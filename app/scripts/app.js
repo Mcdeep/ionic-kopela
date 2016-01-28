@@ -6,9 +6,11 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter',
   ['ionic',
+    'ionic-material',
     'starter.controllers',
     'restangular',
-    'config'
+    'config',
+    'LocalStorageModule'
   ])
 
 .run(function($ionicPlatform) {
@@ -27,20 +29,25 @@ angular.module('starter',
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, RestangularProvider, ENV) {
+.config(function($stateProvider, $urlRouterProvider, RestangularProvider, ENV, localStorageServiceProvider,$ionicConfigProvider) {
   $stateProvider
-
+    .state('init', {
+      url:'/',
+      templateUrl: 'templates/loading.html',
+      controller: 'LoadCtrl'
+    })
     .state('app', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
-  })
+      url: '/app',
+      abstract: true,
+      templateUrl: 'templates/menu.html',
+      controller: 'AppCtrl'
+    })
     .state('app.welcome', {
       url: '/welcome',
       views: {
         'menuContent': {
-          templateUrl: 'templates/welcome.html'
+          templateUrl: 'templates/welcome.html',
+          controller:'WelcomeCtrl'
         }
       }
     })
@@ -53,17 +60,19 @@ angular.module('starter',
       }
     }
   })
-
-  .state('app.browse', {
-      url: '/browse',
+  .state('app.recent', {
+      url: '/recent',
+      cache: false,
       views: {
         'menuContent': {
-          templateUrl: 'templates/browse.html'
+          templateUrl: 'templates/recent.html',
+          controller: 'RecentCtrl'
         }
       }
     })
     .state('app.songlist', {
       url: '/songlist',
+      cache: false,
       views: {
         'menuContent': {
           templateUrl: 'templates/song_list.html',
@@ -71,8 +80,17 @@ angular.module('starter',
         }
       }
     })
-    .state('app.playlists', {
-      url: '/playlists',
+    .state('app.song', {
+      url: '/song/:songID',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/song.html',
+          controller: 'SongCtrl'
+        }
+      }
+    })
+    .state('app.playlist', {
+      url: '/playlist',
       views: {
         'menuContent': {
           templateUrl: 'templates/playlists.html',
@@ -80,17 +98,31 @@ angular.module('starter',
         }
       }
     })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
-    views: {
+    .state('app.single', {
+      url: '/song/:playlistId',
+      views: {
       'menuContent': {
         templateUrl: 'templates/playlist.html',
         controller: 'PlaylistCtrl'
       }
     }
   });
+
+    $ionicConfigProvider.backButton.text('');
+    $ionicConfigProvider.backButton.previousTitleText(false);
   // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/welcome');
+    $urlRouterProvider.otherwise('/');
+
+
+
+
+    /*Restangular Configs*/
     RestangularProvider.setBaseUrl(ENV['apiEndpoint']);
+    RestangularProvider.setRestangularFields({
+      id:"_id"
+    });
+
+    /*localStorageServiceProvider*/
+
+    localStorageServiceProvider.setPrefix('ikopela');
 });

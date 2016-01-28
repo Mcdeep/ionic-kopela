@@ -1,5 +1,23 @@
 <ion-view view-title="iKopelo">
-  <ion-content>
-    <h2 style="font-weight: 300">Welcome</h2>
+  <ion-content id="welcome">
+    <div class="bar bar-subheader static text-center">
+      <strong class="title">Welcome to iKopelo</strong>
+    </div>
+    <div class="background">
+      <img src="images/Logo.png" width="200" alt="logo" />
+    </div>
+
+    <div class="list">
+      <div class="bar item item-divider"> Recenctly Added Songs</div>
+      <a class="item item-icon-right"
+         ng-repeat="song in lastThree"
+         href="#/app/song/{{song._id}}">
+          {{song.name| limitTo: 30}}...
+        <i class="icon ion-chevron-right"></i>
+      </a>
+
+      <div class="bar item item-divider">Playlist</div>
+      <a class="item">No Playlist Added </a>
+    </div>
   </ion-content>
 </ion-view>

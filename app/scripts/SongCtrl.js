@@ -1,10 +1,13 @@
 angular.module('starter.controllers')
 
-.controller('SongListCtrl',function($scope, Restangular){
+.controller('SongListCtrl',function($scope, Restangular, SongsService){
+    /*Songs from Local Storage*/
+    $scope.songs = SongsService.getSongs();
 
-    Restangular.all('songs').getList().then(function(results){
-      $scope.songs = results;
-    });
+  })
+.controller('SongCtrl',function($scope,SongsService, $stateParams){
+  //$scope.song = resp;
+  $scope.song = SongsService.getSingleSong($stateParams.songID);
 
-
-  });
+  SongsService.setRecentSong($scope.song);
+});
